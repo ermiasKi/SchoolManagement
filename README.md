@@ -55,7 +55,6 @@ cd SchoolManagement
 # 3. Create and activate a virtual environment
 python -m venv venv
 source venv/bin/activate    # (on Mac/Linux)
-venv\Scripts\activate       # (on Windows)
 
 # 4. Install dependencies
 pip install -r requirements.txt
@@ -65,4 +64,4 @@ python manage.py makemigrations
 python manage.py migrate
 
 # 6. Run the development server
-python manage.py runserver
+python manage.py runserver 
