@@ -83,20 +83,26 @@ The project is divided into modular Django apps:
 
 ---
 
-## How to run the project
+## ⚙️ Installation & Setup
 
-# 1. Clone the repository
-git clone https://github.com/<your-username>/school-management-backend.git
+### 1️⃣ Clone the Repository
 
-# 2. Navigate into the project
+```bash
+git clone https://github.com/ermiasKi/SchoolManagement.git
 cd SchoolManagement
+```
 
-# 3. Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate    # (on Mac/Linux)
-venv\Scripts\activate       # (on Windows)
+### 2️⃣ Create Virtual Environment
 
-# 4. Install dependencies
+```bash
+python3 -m venv venv
+source venv/bin/activate   # For Linux/Mac
+venv\Scripts\activate      # For Windows
+```
+
+### 3️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
@@ -118,6 +124,111 @@ PORT='5432'
 ```bash
 python manage.py makemigrations
 python manage.py migrate
+```
 
-# 6. Run the development server
+### 6️⃣ Create Superuser
+
+```bash
+python manage.py createsuperuser
+```
+
+### 7️⃣ Run the Server
+
+```bash
 python manage.py runserver
+```
+
+---
+
+## 🔗 API Endpoints Overview
+
+### 🧍‍♂️ Authentication
+
+| Method | Endpoint              | Description         |
+| ------ | --------------------- | ------------------- |
+| POST   | `/accounts/register/` | Register new user   |
+| POST   | `/accounts/login/`    | Login and get token |
+| GET    | `/accounts/users/`    | View all users      |
+
+### 🎓 Academics
+
+| Method   | Endpoint                 | Description           |
+| -------- | ------------------------ | --------------------- |
+| GET/POST | `/academics/subjects/`   | Manage subjects       |
+| GET/POST | `/academics/classrooms/` | Manage classrooms     |
+| GET/POST | `/academics/grades/`     | Record or view grades |
+
+### 🧑‍🏫 Teachers & Students
+
+| Method   | Endpoint                   | Description                                    |
+| -------- | -------------------------- | ---------------------------------------------- |
+| GET/POST | `/teachers/teachers/`      | Manage teachers                                |
+| GET/POST | `/students/students/`      | Manage students                                |
+| GET      | `/students/students/{id}/` | View student details (attendance, score, etc.) |
+
+### 📅 Attendance
+
+| Method   | Endpoint                  | Description             |
+| -------- | ------------------------- | ----------------------- |
+| GET/POST | `/attendance/attendaces/` | Mark or view attendance |
+
+### 📣 Announcements
+
+| Method   | Endpoint                        | Description          |
+| -------- | ------------------------------- | -------------------- |
+| GET/POST | `/announcements/announcements/` | Manage announcements |
+
+### 🔔 Notifications
+
+| Method | Endpoint                        | Description             |
+| ------ | ------------------------------- | ----------------------- |
+| GET    | `/notifications/notifications/` | View user notifications |
+
+---
+
+## 🧩 Notifications Logic
+
+* **Signals** trigger notifications automatically when:
+
+  * A teacher updates attendance or grades.
+  * A teacher/admin creates an announcement.
+* Notifications include:
+
+  * Sender (creator of the action)
+  * Receiver (target user)
+  * Message content
+  * Timestamp
+  * Read/unread status
+
+---
+
+## 📊 Example Workflow
+
+1. **Admin** registers users (students, teachers).
+2. **Teacher** records attendance and grades → student receives notification.
+3. **Admin/Teacher** creates announcement → targeted notifications sent automatically.
+4. **Students** log in to view grades, attendance, and unread notifications.
+
+---
+
+## 🧪 Testing APIs
+
+Use **Postman** or `curl` to test the following workflow:
+
+1. Register and login a user → get token
+2. Create subjects and classrooms
+3. Register students and assign classrooms
+4. Create teacher and assign subjects/classes
+5. Record attendance and grades → check notifications
+6. Create announcement → check targeted delivery
+7. Retrieve all notifications for the logged-in user
+
+---
+
+## 👥 Contributors
+
+**Developer:** Ermias Kindalem
+**Framework:** Django REST Framework
+**Version:** 1.0.0
+
+---
